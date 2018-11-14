@@ -1,4 +1,4 @@
 # CS252-WebApp Fall-2018
-Members:
+__Members:__
 
-  Rongxi Zhang, zhan2488@purdue.edu
+    *Rongxi Zhang, zhan2488@purdue.edu
