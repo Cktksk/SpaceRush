@@ -1,4 +1,10 @@
 # CS252-WebApp Fall-2018
+__Project Name:__
+    Tank Battle
+
+__Project Description:__
+    2D web game for multiplayer
+
 __Members:__
 
     Rongxi Zhang, zhan2488@purdue.edu
