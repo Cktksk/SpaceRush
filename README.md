@@ -17,3 +17,5 @@ __Tools:__
     
     Firebase
     NodeJS
+    JavaScript
+    Html
