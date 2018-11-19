@@ -2,7 +2,8 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<!------ Model & Prototype origin from bootsnipp.com, author: Mutiullah Samim-->>
+<!------ Model & Prototype origin from bootsnipp.com, author: Mutiullah Samim-->
+<!------ Modified by Rongxi Zhang-->
 <!DOCTYPE html>
 <html>
 
@@ -26,7 +27,47 @@
           messagingSenderId: "890762582458"
         };
         firebase.initializeApp(config);
-      </script>
+    </script>
+    <script type="text/javascript">
+    function mousehandler(e) {
+        var myevent = (isNS) ? e : event;
+        var eventbutton = (isNS) ? myevent.which : myevent.button;
+        if ((eventbutton == 2) || (eventbutton == 3)) return false;
+    }
+    document.oncontextmenu = mischandler;
+    document.onmousedown = mousehandler;
+    document.onmouseup = mousehandler;
+    function disableCtrlKeyCombination(e) {
+        var forbiddenKeys = new Array("a", "s", "c", "x","u");
+        var key;
+        var isCtrl;
+        if (window.event) {
+            key = window.event.keyCode;
+            //IE
+            if (window.event.ctrlKey)
+                isCtrl = true;
+            else
+                isCtrl = false;
+        }
+        else {
+            key = e.which;
+            //firefox
+            if (e.ctrlKey)
+                isCtrl = true;
+            else
+                isCtrl = false;
+        }
+        if (isCtrl) {
+            for (i = 0; i < forbiddenKeys.length; i++) {
+                //case-insensitive comparation
+                if (forbiddenKeys[i].toLowerCase() == String.fromCharCode(key).toLowerCase()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+</script>
     <!--Bootsrap 4 CDN-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
@@ -81,10 +122,14 @@
                     <div class="d-flex justify-content-center">
                         <a href="#">Forgot your password?</a>
                     </div>
+                    <div class="d-flex justify-content-center">
+                            <p class="text-warning"><a href="#">Click here to view our Page :)</a></p>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
