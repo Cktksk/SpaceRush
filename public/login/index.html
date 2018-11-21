@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="not_signed_in">
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header">
@@ -60,13 +60,13 @@
                             <input type="password" class="form-control" placeholder="Password" id="pass_field">
                         </div>
                         <div class="row align-items-center remember">
-                            <input type="checkbox">Remember Me
+                            <input type="checkbox" id="remeber_me">Remember Me
                         </div>
                         <div class="form-group">
 
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="register" class="btn float-right btn-danger" id="register_btn"
+                            <input type="submit" value="register" class="btn float-right reg_btn" id="register_btn"
                                 onclick="register()">
                             <input type="submit" value="Login" class="btn float-left login_btn" id="login_btn" onclick="login()">
                         </div>
@@ -76,6 +76,35 @@
                     <div class="d-flex justify-content-center">
                         <a href="#">Forgot your password?</a>
                     </div>
+                    <div class="d-flex justify-content-center">
+                        <p class="text-warning"><a href="#">Click here to view our Page :)</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="signedin" id="signed_in">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Welcome User</h3>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="display_outline">
+                            <p>Welcome to this Tank World! Good Luck!</p>
+                            <div class = "display_userInfo">
+                                    <p id="email_display">User email:</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Logout" class="btn float-right logout_btn" id="logout_btn"
+                                onclick="logout()">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         <p class="text-warning"><a href="#">Click here to view our Page :)</a></p>
                     </div>
