@@ -7,7 +7,7 @@ function login() {
         firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
             // Sign-out successful.
             login_method = "email";
-            window.alert("Hi " + email + ",\nWelcom to The JoJo Tank World :)\nRemember me: Yes");
+            window.alert("Hi " + email + ",\nWelcome to The JoJo Tank World :)\nRemember me: Yes");
         }).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -22,7 +22,7 @@ function login() {
                 // In memory persistence will be applied to the signed in Google user
                 // even though the persistence was set to 'none' and a page redirect
                 // occurred.
-                window.alert("Hi " + email + ",\nWelcom to The JoJo Tank World :)\nRemember me: No");
+                window.alert("Hi " + email + ",\nWelcome to The JoJo Tank World :)\nRemember me: No");
                 return firebase.auth().signInWithEmailAndPassword(email, password);
             })
             .catch(function (error) {
