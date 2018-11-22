@@ -6,8 +6,8 @@ init();
 animate();
 
 function init(){
-    // Setup
-	//container = document.getElementById( 'container' );
+	// Setup
+	container = document.getElementById( 'signed_in' );
 
 	scene = new THREE.Scene();
 
@@ -16,12 +16,34 @@ function init(){
 
 	renderer = new THREE.WebGLRenderer( { alpha: true} );
 	renderer.setSize( window.innerWidth, window.innerHeight);
+
+	// load game
+	load_Game();
+
+	// Events
+	window.addEventListener( "resize", onWindowResize, false );
+	container.appendChild( renderer.domElement );
+	document.body.appendChild( container );
+
+
 }
 
 function animate(){
-
+	requestAnimationFrame( animate );
+	if(controls){
+		controls.update();
+	}
+	render();
 }
 
 function render(){
+	renderer.clear();
+	renderer.render( scene, camera );
+}
 
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	
+	renderer.setSize( window.innerWidth, window.innerHeight );
 }

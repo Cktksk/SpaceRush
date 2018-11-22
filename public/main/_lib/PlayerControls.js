@@ -15,7 +15,7 @@ THREE.PlayerControls = function ( camera, player, domElement ) {
 	this.turnSpeed = 0.1;
 
 	this.userZoom = true;
-	this.userZoomSpeed = 0.5;
+	this.userZoomSpeed = 1.0;
 
 	this.userRotate = true;
 	this.userRotateSpeed = 1.5;
@@ -286,19 +286,7 @@ THREE.PlayerControls = function ( camera, player, domElement ) {
 	        this.camera.position.x += this.moveSpeed * Math.cos( this.player.rotation.y );
 	        this.camera.position.z -= this.moveSpeed * Math.sin( this.player.rotation.y );
 
-		}
-		database.ref( "Players/" + playerID + "/orientation" ).update({
-	    	position: {
-	    		x: this.player.position.x,
-	    		y: this.player.position.y,
-	    		z: this.player.position.z
-	    	},
-	    	rotation: {
-	    		x: this.player.rotation.x,
-	    		y: this.player.rotation.y,
-	    		z: this.player.rotation.z
-	    	}
-	    });
+	    }
 
 	};
 

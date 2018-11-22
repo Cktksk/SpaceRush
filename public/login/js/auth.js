@@ -68,16 +68,16 @@ function facebook() {
         window.alert("Login Error: " + errorMessage);
     });
 }
-function gmail(){
+function gmail() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
         login_method = "gmail";
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
         // ...
-      }).catch(function(error) {
+    }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -87,18 +87,18 @@ function gmail(){
         var credential = error.credential;
         window.alert("Login Error: " + errorMessage);
         // ...
-      });
+    });
 }
-function github(){
+function github() {
     var provider = new firebase.auth.GithubAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then(function (result) {
         login_method = "github";
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
         // ...
-      }).catch(function(error) {
+    }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -108,7 +108,7 @@ function github(){
         var credential = error.credential;
         // ...
         window.alert("Login Error: " + errorMessage);
-      });
+    });
 }
 
 
@@ -127,29 +127,25 @@ function logout() {
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
-        console.log(firebaseUser);
+        var user = firebase.auth().currentUser;
+        if (user != null) {
+            user.providerData.forEach(function (profile) {
+                console.log("Sign-in provider: " + profile.providerId);
+                console.log("  Provider-specific UID: " + profile.uid);
+                console.log("  Name: " + profile.displayName);
+                console.log("  Email: " + profile.email);
+                console.log("  Photo URL: " + profile.photoURL);
+            });
+        }
+        //console.log(firebaseUser);
+        document.getElementById("html_body").style.backgroundImage = "url(https://www.ledr.com/colours/white.jpg)";
         document.title = "Welcome to this awesome game!"
         document.getElementById("not_signed_in").style.display = "none";
         document.getElementById("signed_in").style.display = "initial";
-        if(login_method == "facebook"){
-            document.getElementById('email_display').innerHTML = firebaseUser.displayName;
-            document.getElementById('cred_display').innerHTML = "Through Facebook";
-        }else if(login_method == "email"){
-            document.getElementById('email_display').innerHTML = "Email: " + firebaseUser.email;
-            document.getElementById('cred_display').innerHTML = "Through Email";
-        }else if(login_method == "gmail"){
-            document.getElementById('email_display').innerHTML = "Email: " + firebaseUser.email;
-            document.getElementById('cred_display').innerHTML = "Through Gmail";
-        }else if(login_method == "github"){
-            document.getElementById('email_display').innerHTML = "Email: " + firebaseUser.email;
-            document.getElementById('cred_display').innerHTML = "Through github";
-        }else{
-            document.getElementById('email_display').innerHTML = "Email: " + firebaseUser.email;
-        }
-        console.log(login_method);
-        
+
     } else {
         console.log('Not logged in!');
+        document.getElementById("html_body").style.backgroundImage = "url(http://hddesktopwallpapers.in/wp-content/uploads/2015/11/world-of-tanks-wallpaper.jpg)";
         document.title = "Login to this awesome game!"
         document.getElementById("not_signed_in").style.display = "initial";
         document.getElementById("signed_in").style.display = "none";

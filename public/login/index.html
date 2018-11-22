@@ -21,7 +21,7 @@
         firebase.initializeApp(config);
     </script>
     <script src="_lib/three.js"></script>
-    <script scr="_lib/PlayerControls.js"></script>
+    <script src="_lib/PlayerControls.js"></script>
     <!--Bootsrap 4 CDN-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
-<body>
+<body id="html_body">
     <div class="container" id="not_signed_in">
         <div class="d-flex justify-content-center h-100">
             <div class="card">
@@ -87,37 +87,13 @@
     </div>
 
     <div class="signedin" id="signed_in">
-        <div class="d-flex justify-content-center h-100">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Welcome User</h3>
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="display_outline">
-                            <p>Welcome to this Tank World! Good Luck!</p>
-                            <div class = "display_userInfo">
-                                    <p id="email_display"></p>
-                                    <p id="cred_display"></p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <a href="http://localhost:5005" class="btn float-left login_btn">GO</a>
-                            <input type="submit" value="Logout" class="btn float-right logout_btn" id="logout_btn"
-                                onclick="logout()">
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-center">
-                        <p class="text-warning"><a href="#">Click here to view our Page :)</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <input type="submit" value="Logout" class="btn float-right logout_btn" id="logout_btn" onclick="logout()">
     </div>
     <script src='js/auth.js'></script>
+    <script src='js/player.js'></script>
+    <script src='js/game.js'></script>
     <script src='js/main.js'></script>
+    
 
 
 </body>
