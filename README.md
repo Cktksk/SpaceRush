@@ -26,5 +26,7 @@ __URL:__
     https://jojotankworld.firebaseapp.com/
 
 ![][jojo_img]
+![][jojo_villains]
 
 [jojo_img]:https://github.com/Cktksk/MyCache/blob/master/ImageLogos/jojos.jpg
+[jojo_villains]:https://github.com/Cktksk/MyCache/blob/master/ImageLogos/jojo_villains.jpg
