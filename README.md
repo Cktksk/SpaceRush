@@ -1,5 +1,5 @@
 # CS252-WebApp Fall-2018
-https://github.com/Cktksk/MyCache/blob/master/ImageLogos/jojos.jpg
+![]https://github.com/Cktksk/MyCache/blob/master/ImageLogos/jojos.jpg
 __Project Name:__
     
     JoJo Tank Battle
