@@ -22,7 +22,7 @@ function login() {
                 // In memory persistence will be applied to the signed in Google user
                 // even though the persistence was set to 'none' and a page redirect
                 // occurred.
-                window.alert("Hi " + email + ",\nWelcome to The JoJo Tank World :)\nRemember me: No");
+                //window.alert("Hi " + email + ",\nWelcome to The JoJo Tank World :)\nRemember me: No");
                 return firebase.auth().signInWithEmailAndPassword(email, password);
             })
             .catch(function (error) {
@@ -128,6 +128,7 @@ function logout() {
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         console.log(firebaseUser);
+        document.title = "Welcome to this awesome game!"
         document.getElementById("not_signed_in").style.display = "none";
         document.getElementById("signed_in").style.display = "initial";
         if(login_method == "facebook"){
@@ -149,6 +150,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         
     } else {
         console.log('Not logged in!');
+        document.title = "Login to this awesome game!"
         document.getElementById("not_signed_in").style.display = "initial";
         document.getElementById("signed_in").style.display = "none";
     }

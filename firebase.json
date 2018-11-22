@@ -19,8 +19,8 @@
       ]
     },
     {
-      "target": "signup",
-      "public": "public/signup",
+      "target": "main",
+      "public": "public/main",
       "ignore": [
         "firebase.json",
         "**/.*",
