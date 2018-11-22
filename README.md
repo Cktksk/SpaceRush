@@ -1,7 +1,8 @@
 # CS252-WebApp Fall-2018
+https://github.com/Cktksk/MyCache/blob/master/ImageLogos/jojos.jpg
 __Project Name:__
     
-    Tank Battle
+    JoJo Tank Battle
 
 __Project Description:__
     
@@ -19,3 +20,7 @@ __Tools:__
     NodeJS
     JavaScript
     Html
+    
+__URL:__
+
+    https://jojotankworld.firebaseapp.com/
