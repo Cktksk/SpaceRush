@@ -6,7 +6,7 @@ __Project Name:__
 
 __Project Description:__
     
-    2D web game for multiplayer
+    3D web game for multiplayer
 
 __Members:__
 
