@@ -5,14 +5,14 @@
   "targets": {
     "jojotankworld": {
       "hosting": {
-        "login": [
-          "jojotankworld"
-        ],
         "signup": [
           "signup-jojotankworld"
         ],
         "main": [
           "main-jojotankworld"
+        ],
+        "spacerush": [
+          "jojotankworld"
         ]
       }
     }

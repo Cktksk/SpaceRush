@@ -82,6 +82,7 @@ function animate() {
 
 }
 function gameOver() {
+	database.ref( "Players/" + playerID ).remove();
 	document.getElementById("ldb").innerHTML = "";
 	window.alert("Game Over, you got hit by a comet!");
 	game_state = "over";

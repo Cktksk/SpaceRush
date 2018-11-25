@@ -6,7 +6,6 @@ var config = {
     storageBucket: "jojotankworld.appspot.com",
     messagingSenderId: "61981639812"
 };
-
 var database = firebase.database();
 var player;
 var otherPlayers = {};
