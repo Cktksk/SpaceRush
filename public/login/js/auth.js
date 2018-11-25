@@ -1,4 +1,5 @@
 var login_method;
+var game_state;
 function login() {
     var remember = document.getElementById("remeber_me").checked;
     var email = document.getElementById("email_field").value;
@@ -7,6 +8,7 @@ function login() {
         firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
             // Sign-out successful.
             login_method = "email";
+            game_state = "start";
             window.alert("Hi " + email + ",\nWelcome to The JoJo Tank World :)\nRemember me: Yes");
         }).catch(function (error) {
             // Handle Errors here.
@@ -19,6 +21,7 @@ function login() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
             .then(function () {
                 login_method = "email";
+                game_state = "start";
                 // In memory persistence will be applied to the signed in Google user
                 // even though the persistence was set to 'none' and a page redirect
                 // occurred.
@@ -38,6 +41,7 @@ function register() {
     var password = document.getElementById("pass_field").value;
     firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
         // Sign up successful.
+        game_state = "start";
         login_method = "email";
         window.alert("Successfully signed up\nYour Account Email is " + email);
     }).catch(function (error) {
@@ -55,6 +59,7 @@ function facebook() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
+        game_state = "start";
         // ...
     }).catch(function (error) {
         // Handle Errors here.
@@ -76,6 +81,7 @@ function gmail() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
+        game_state = "start";
         // ...
     }).catch(function (error) {
         // Handle Errors here.
@@ -97,6 +103,7 @@ function github() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
+        game_state = "start";
         // ...
     }).catch(function (error) {
         // Handle Errors here.
@@ -113,6 +120,7 @@ function github() {
 
 
 function logout() {
+    game_state = "over";
     firebase.auth().signOut().then(function () {
         // Sign-out successful.
         window.alert("Successfully logout");
@@ -124,9 +132,13 @@ function logout() {
     });
 
 }
+function newGame() {
+    game_state = "start";
+    location.reload();
+}
 
 firebase.auth().onAuthStateChanged(firebaseUser => {
-    if (firebaseUser) {
+    if (firebaseUser && game_state == "start") {
         var user = firebase.auth().currentUser;
         if (user != null) {
             user.providerData.forEach(function (profile) {
@@ -142,12 +154,22 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         document.title = "Welcome to this awesome game!"
         document.getElementById("not_signed_in").style.display = "none";
         document.getElementById("signed_in").style.display = "initial";
+        document.getElementById("game_over").style.display = "none";
 
-    } else {
+    } else if (firebaseUser && game_state == "over") {
+        document.getElementById("html_body").style.backgroundImage = "url(http://www.gamesta.com/wp-content/uploads/2014/08/destiny3.jpg)";
+        document.getElementById("not_signed_in").style.display = "none";
+        document.getElementById("signed_in").style.display = "none";
+        document.getElementById("game_over").style.display = "initial";
+
+    }
+    else {
+        game_state = "over";
         console.log('Not logged in!');
-        document.getElementById("html_body").style.backgroundImage = "url(http://hddesktopwallpapers.in/wp-content/uploads/2015/11/world-of-tanks-wallpaper.jpg)";
+        document.getElementById("html_body").style.backgroundImage = "url(http://www.gamesta.com/wp-content/uploads/2014/08/destiny3.jpg)";
         document.title = "Login to this awesome game!"
         document.getElementById("not_signed_in").style.display = "initial";
         document.getElementById("signed_in").style.display = "none";
+        document.getElementById("game_over").style.display = "none";
     }
 })

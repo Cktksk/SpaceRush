@@ -88,9 +88,28 @@
 
     <div class="signedin fixed" id="signed_in">
         <input type="submit" value="Logout" class="btn float-right logout_btn" id="logout_btn" onclick="logout()">
-        <div class="card-footer" id = "inforbar">
-            <div class="d-flex justify-content-center">
-                <a>Press W/A/S/D/Q/E or arrow keys to move</a>
+    </div>
+
+    <div class="gameover" id="game_over">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Good Luck next time!</h3>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="display_outline">
+                            <p class="display_userInfo" id="status"></p>
+                            <p class="display_userInfo">------------Leader Board------------</p>
+                            <p class="ldb_info" id="ldb"></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Again" class="btn float-left login_btn" id="newgame_btn"
+                                onclick="newGame()">
+                            <input type="submit" value="Logout" class="btn float-right logout_btn" onclick="logout()">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

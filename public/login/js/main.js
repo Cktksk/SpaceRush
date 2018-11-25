@@ -5,7 +5,7 @@ var circles = [];
 var counter = 0;
 var deg = Math.PI / 2;
 var crash;
-var timeNow;
+var timeStart;
 var timeSurvived;
 var deathzone = 20.5;
 var goalzone = 141.7;
@@ -29,26 +29,27 @@ function init() {
 	load_Game();
 	//initCycle();
 	//initball();
-	timeNow = Date.now();
+	
+	timeStart = Date.now();
 	// Events
 	window.addEventListener("resize", onWindowResize, false);
 	container.appendChild(renderer.domElement);
 	document.body.appendChild(container);
+	game_state = "start";
 }
 
 function animate() {
 	requestAnimationFrame(animate);
+	render();
 	var random_t = getRandomInt(0, 100);
 	if (random_t <= 10 && counter <= 500) {
 		makeRandomSphere();
 		counter++;
 	}
-	timeSurvived = Date.now() - timeNow;
+
 	var distance_from_zero = Math.sqrt(Math.pow(player.mesh.position.x, 2) + Math.pow(player.mesh.position.z, 2));
 	if (controls) {
-		controls.update();
 		setTimeout(ballmove(), 3000);
-		
 		var originPoint = player.mesh.position.clone();
 		for (var vertexIndex = 0; vertexIndex < player.mesh.geometry.vertices.length; vertexIndex++) {
 			var localVertex = player.mesh.geometry.vertices[vertexIndex].clone();
@@ -62,21 +63,14 @@ function animate() {
 			}
 			crash = false;
 		}
-		if(player.mesh.position.clone() == originPoint){
-			console.log(time_not_move);
-			var time_not_move = Date.now();
-			if(time_not_move >= 2000){
-				console.log("die because not moving!");
-			}
-		}
-		// calculate position
-		if (crash) {
+		controls.update();
+		if (crash && game_state == "start") {
 			console.log("Crash");
-		} else {
-			player.score++;
+			timeSurvived = Date.now() - timeStart;
+			gameOver();
 		}
 	}
-	render();
+
 	// generate random spheres
 	/*
 	// move the ball
@@ -85,6 +79,56 @@ function animate() {
 	}*/
 	// checking for crash
 
+
+}
+function gameOver() {
+	document.getElementById("ldb").innerHTML = "";
+	window.alert("Game Over, you got hit by a comet!");
+	game_state = "over";
+	document.getElementById("html_body").style.backgroundImage = "url(http://www.gamesta.com/wp-content/uploads/2014/08/destiny3.jpg)";
+	document.getElementById("not_signed_in").style.display = "none";
+	document.getElementById("signed_in").style.display = "none";
+	document.getElementById("game_over").style.display = "initial";
+	var user_display = current_user.displayName;
+	if (!user_display) {
+		user_display = current_user.email;
+	}
+	document.getElementById('status').innerHTML = "Player: " + user_display + " survived for\n" + timeSurvived / 1000 + "s.";
+	var score_ref = firebase.database().ref('Stored/' + playerID);
+	score_ref.on('value', function (snapshot) {
+		var data = snapshot.val();
+		//console.log(data.highest_score);
+		if (!data || data.highest_score < (timeSurvived / 1000) || !data.highest_score) {
+			database.ref("Stored/" + playerID).set({
+				name: user_display,
+				highest_score: timeSurvived / 1000
+			});
+		}
+	});
+	writeScores();
+
+
+}
+function writeScores() {
+	document.getElementById("ldb").innerHTML = "";
+	var leadRef = database.ref('Stored/');
+	leadRef.on('value', function (snapshot) {
+		snapshot.forEach(function (childSnapshot) {
+			var nameData = childSnapshot.val().name + ", score: ";
+			var scoreData = childSnapshot.val().highest_score;
+			var node = document.createElement("tr");
+			var nameth = document.createElement("th");
+			var scoreth = document.createElement("th");
+			var nameTxt = document.createTextNode(nameData);
+			var scoreTxt = document.createTextNode(scoreData);
+			nameth.appendChild(nameTxt);
+			scoreth.appendChild(scoreTxt);
+			node.appendChild(nameth);
+			node.appendChild(scoreth);
+			document.getElementById("ldb").appendChild(node);
+
+		});
+	});
 
 }
 
@@ -129,12 +173,12 @@ function makeRandomSphere() {
 }
 
 function ballmove() {
-	deg +=  1/3 * Math.PI / 180;
+	deg += 1 / 3 * Math.PI / 180;
 	collideMeshList.forEach((ball, index) => {
-		
+
 		//ball.position.x += 1;
-		ball.position.z += 1.1*getRandomArbitrary(0.8,1);
-		
+		ball.position.z += 1 * getRandomArbitrary(0.5, 0.9);
+
 		/*
 		database.ref("Balls/" + index).update({
 			position: {
@@ -184,14 +228,14 @@ function initball() {
 		collideMeshList.push(ball)
 	}
 }
-function getColor(){
-	var colorValue="0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
+function getColor() {
+	var colorValue = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
 	var colorArray = colorValue.split(",");
-	  var color="#";
-	  for(var i=0;i<6;i++){
-		  color+=colorArray[Math.floor(Math.random()*16)];
-	  }
-	  return color;
+	var color = "#";
+	for (var i = 0; i < 6; i++) {
+		color += colorArray[Math.floor(Math.random() * 16)];
+	}
+	return color;
 }
 
 function sleep(ms) {

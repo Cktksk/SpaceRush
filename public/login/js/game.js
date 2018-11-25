@@ -19,7 +19,7 @@ function load_Game() {
             // User is signed in.
             current_user = firebase.auth().currentUser;
             playerID = current_user.uid;
-            loadEnvironment();
+            //loadEnvironment();
             // load the player
             initMainPlayer();
             listenToOtherPlayers();
@@ -82,20 +82,11 @@ function initMainPlayer() {
         orientation: {
             position: { x: 0, y: 0, z: 0 },
             rotation: { x: 0, y: 0, z: 0 }
-        },
-        current_score: 0,
+        }
     });
-    // database for stored user information
-    database.ref("Stored/" + playerID).set({
-        highest_score: 0,
-    });
-
     player = new Player(playerID);
     player.isMainPlayer = true;
     player.init();
-    database.ref("Stored/" + playerID).update({
-        highest_score:player.score
-    });
 }
 
 function loadEnvironment() {

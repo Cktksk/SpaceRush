@@ -125,3 +125,9 @@ margin-left: 4px;
     position: fixed;
     width: 100%;
 }
+.ldb_info{
+    color:rgb(156, 74, 223);
+    font: bold;
+    font-size: 15px;
+    background-color: bisque;
+}
