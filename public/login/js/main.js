@@ -8,8 +8,8 @@ var deg = Math.PI / 2;
 var crash;
 var timeStart;
 var timeSurvived;
-var deathzone = 20.5;
-var goalzone = 141.7;
+var hit = false;
+var out_range = false;
 
 
 init();
@@ -32,7 +32,7 @@ function init() {
 	load_Game();
 	//initCycle();
 	//initball();
-	
+
 	timeStart = Date.now();
 	// Events
 	window.addEventListener("resize", onWindowResize, false);
@@ -85,7 +85,7 @@ function animate() {
 			//console.log(distance);
 			//console.log("ball:");
 			//console.log(ball.geometry.radius);
-			if(distance < (1 + radiusList[index])){
+			if (distance < (1 + radiusList[index])) {
 				crash = true;
 			}
 			/*
@@ -98,13 +98,20 @@ function animate() {
 			});
 			*/
 		})
-		
+
 		if (crash && game_state == "start") {
 			console.log("Crash");
 			timeSurvived = Date.now() - timeStart;
+			hit = true;
 			gameOver();
 		}
-		
+		if (player.mesh.position.x > 100 || player.mesh.position.x < -100) {
+			console.log("Out of boundary");
+			timeSurvived = Date.now() - timeStart;
+			out_range = true;
+			gameOver();
+		}
+
 	}
 
 	// generate random spheres
@@ -118,10 +125,18 @@ function animate() {
 
 }
 function gameOver() {
-	database.ref( "Players/" + playerID ).remove();
+
+	database.ref("Players/" + playerID).remove();
 	document.getElementById("ldb").innerHTML = "";
-	window.alert("Game Over, you got hit by a comet!");
-	game_state = "over";
+	if (hit && game_state == "start") {
+		window.alert("Game Over, you got hit by a comet!");
+		game_state = "over";
+	}
+	else if (out_range && game_state == "start") {
+		window.alert("Game Over, you ran out of boundary!");
+		game_state = "over";
+	}
+	
 	document.getElementById("html_body").style.backgroundImage = "url(http://www.gamesta.com/wp-content/uploads/2014/08/destiny3.jpg)";
 	document.getElementById("not_signed_in").style.display = "none";
 	document.getElementById("signed_in").style.display = "none";

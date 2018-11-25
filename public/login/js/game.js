@@ -23,24 +23,24 @@ function load_Game() {
             initMainPlayer();
             listenToOtherPlayers();
             //remove player from the scene when they leave 
-            window.onunload = function() {
-                database.ref( "Players/" + playerID ).remove();
+            window.onunload = function () {
+                database.ref("Players/" + playerID).remove();
             };
-        
-            window.onbeforeunload = function() {
-                database.ref( "Players/" + playerID ).remove();
+
+            window.onbeforeunload = function () {
+                database.ref("Players/" + playerID).remove();
             };
-            
-            
+
+
         } else {
             // No user is signed in.
             console.log("You lose connect during the game");
-            window.onunload = function() {
-                database.ref( "Players/" + playerID ).remove();
+            window.onunload = function () {
+                database.ref("Players/" + playerID).remove();
             };
-        
-            window.onbeforeunload = function() {
-                database.ref( "Players/" + playerID ).remove();
+
+            window.onbeforeunload = function () {
+                database.ref("Players/" + playerID).remove();
             };
         }
     });
@@ -48,31 +48,31 @@ function load_Game() {
 
 }
 function listenToOtherPlayers() {
-	// when a player is added, do something
-	database.ref( "Players" ).on( "child_added", function( playerData ) {
-		if ( playerData.val() ) {
-			if ( playerID != playerData.key && !otherPlayers[playerData.key] ) {
-				otherPlayers[playerData.key] = new Player( playerData.key );
-				otherPlayers[playerData.key].init();
-				database.ref( "Players/" + playerData.key ).on( "value", listenToPlayer );
-			}
-		}
-	});
+    // when a player is added, do something
+    database.ref("Players").on("child_added", function (playerData) {
+        if (playerData.val()) {
+            if (playerID != playerData.key && !otherPlayers[playerData.key]) {
+                otherPlayers[playerData.key] = new Player(playerData.key);
+                otherPlayers[playerData.key].init();
+                database.ref("Players/" + playerData.key).on("value", listenToPlayer);
+            }
+        }
+    });
 
-	// when a player is removed, do something
+    // when a player is removed, do something
 
-	database.ref( "Players" ).on( "child_removed", function( playerData ) {
-		if ( playerData.val() ) {
-			database.ref( "Players/" + playerData.key ).off( "value", listenToPlayer );
-			scene.remove( otherPlayers[playerData.key].mesh );
-			delete otherPlayers[playerData.key];
-		}
-	});
+    database.ref("Players").on("child_removed", function (playerData) {
+        if (playerData.val()) {
+            database.ref("Players/" + playerData.key).off("value", listenToPlayer);
+            scene.remove(otherPlayers[playerData.key].mesh);
+            delete otherPlayers[playerData.key];
+        }
+    });
 }
-function listenToPlayer( playerData ) {
-	if ( playerData.val() ) {
-		otherPlayers[playerData.key].setOrientation( playerData.val().orientation.position, playerData.val().orientation.rotation );
-	}
+function listenToPlayer(playerData) {
+    if (playerData.val()) {
+        otherPlayers[playerData.key].setOrientation(playerData.val().orientation.position, playerData.val().orientation.rotation);
+    }
 }
 
 function initMainPlayer() {
@@ -93,6 +93,6 @@ function loadEnvironment() {
     var sphere_geometry = new THREE.SphereGeometry(1);
     var sphere_material = new THREE.MeshNormalMaterial();
     var sphere = new THREE.Mesh(sphere_geometry, sphere_material);
-
+   
     scene.add(sphere);
 }
