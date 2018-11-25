@@ -25,28 +25,10 @@ function load_Game() {
             //remove player from the scene when they leave 
             window.onunload = function() {
                 database.ref( "Players/" + playerID ).remove();
-                firebase.auth().signOut().then(function () {
-                    // Sign-out successful.
-                    window.alert("Successfully logout");
-                }).catch(function (error) {
-                    // An error happened.
-                    var errorMessage = error.message;
-                    // ...
-                    window.alert("Logout error: " + errorMessage);
-                });
             };
         
             window.onbeforeunload = function() {
                 database.ref( "Players/" + playerID ).remove();
-                firebase.auth().signOut().then(function () {
-                    // Sign-out successful.
-                    window.alert("Successfully logout");
-                }).catch(function (error) {
-                    // An error happened.
-                    var errorMessage = error.message;
-                    // ...
-                    window.alert("Logout error: " + errorMessage);
-                });
             };
             
             

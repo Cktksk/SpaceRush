@@ -10,8 +10,10 @@ var timeSurvived;
 var deathzone = 20.5;
 var goalzone = 141.7;
 
+
 init();
 animate();
+
 
 function init() {
 	// Setup
@@ -42,7 +44,7 @@ function animate() {
 	requestAnimationFrame(animate);
 	render();
 	var random_t = getRandomInt(0, 100);
-	if (random_t <= 20 && counter <= 1500) {
+	if (random_t <= 40 && counter <= 1500) {
 		makeRandomSphere();
 		counter++;
 	}
@@ -115,7 +117,7 @@ function writeScores() {
 	var leadRef = database.ref('Stored/');
 	leadRef.on('value', function (snapshot) {
 		snapshot.forEach(function (childSnapshot) {
-			var nameData = childSnapshot.val().name + ", score: ";
+			var nameData = childSnapshot.val().name;
 			var scoreData = childSnapshot.val().highest_score;
 			var node = document.createElement("tr");
 			var nameth = document.createElement("th");
@@ -164,9 +166,9 @@ function makeRandomSphere() {
 	var box = new THREE.Mesh(geometry, material);
 	//var box = new THREE.BoxHelper(object);
 	//box.material.color.setHex(Math.random() * 0xffffff);
-	box.position.x = getRandomArbitrary(-155, 155);
+	box.position.x = getRandomArbitrary(-100, 100);
 	box.position.y = 0;
-	box.position.z = getRandomArbitrary(-75, -155);
+	box.position.z = getRandomArbitrary(-155, -200);
 	//cubes.push(box);
 	collideMeshList.push(box);
 	scene.add(box);
@@ -178,7 +180,7 @@ function ballmove() {
 	collideMeshList.forEach((ball, index) => {
 
 		//ball.position.x += 1;
-		ball.position.z += 1.1 * getRandomArbitrary(0.6, 0.9);
+		ball.position.z += 1.2 * getRandomArbitrary(0.8, 1);
 
 		/*
 		database.ref("Balls/" + index).update({
