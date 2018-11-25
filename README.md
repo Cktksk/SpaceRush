@@ -2,7 +2,7 @@
 
 __Project Name:__
     
-    JoJo Tank Battle
+    Space Rush
 
 __Project Description:__
     
