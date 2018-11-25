@@ -15,8 +15,8 @@ var Player = function (playerID) {
             // Give player control of this mesh
             controls = new THREE.PlayerControls(camera, scope.mesh);
             controls.init();
-            controls.moveSpeed = 0.1;
-            controls.turnSpeed = 0.02;
+            controls.moveSpeed = 0.2;
+            controls.turnSpeed = 0.03;
         }
     };
 

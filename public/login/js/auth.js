@@ -138,7 +138,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
             });
         }
         //console.log(firebaseUser);
-        document.getElementById("html_body").style.backgroundImage = "url(https://www.ledr.com/colours/white.jpg)";
+        document.getElementById("html_body").style.backgroundImage = "url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543127665290&di=aa9ee51272ef443ae92d27b4e0ef6b24&imgtype=0&src=http%3A%2F%2Fpic4.zhimg.com%2F50%2F132394aa9c7d3ab479175e91cb51558b_r.jpg)";
         document.title = "Welcome to this awesome game!"
         document.getElementById("not_signed_in").style.display = "none";
         document.getElementById("signed_in").style.display = "initial";

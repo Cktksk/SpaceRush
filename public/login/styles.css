@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-background-image: url('http://hddesktopwallpapers.in/wp-content/uploads/2015/11/world-of-tanks-wallpaper.jpg');
+/*background-image: url('http://hddesktopwallpapers.in/wp-content/uploads/2015/11/world-of-tanks-wallpaper.jpg');*/
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
@@ -120,4 +120,8 @@ margin-left: 4px;
     font: bold;
     font-size: 18px;
     background-color: bisque;
+}
+.fixed {
+    position: fixed;
+    width: 100%;
 }

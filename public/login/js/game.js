@@ -35,6 +35,13 @@ function load_Game() {
         } else {
             // No user is signed in.
             console.log("You lose connect during the game");
+            window.onunload = function() {
+                database.ref( "Players/" + playerID ).remove();
+            };
+        
+            window.onbeforeunload = function() {
+                database.ref( "Players/" + playerID ).remove();
+            };
         }
     });
     // load the environment

@@ -219,7 +219,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 	};
 
 	this.checkKeyStates = function () {
-
+		/*
 		if (keyState[38] || keyState[87]) {
 
 			// up arrow or 'w' - move forward
@@ -231,7 +231,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 			this.camera.position.z -= this.moveSpeed * Math.cos(this.player.rotation.y);
 
 		}
-
+		*/
 		if (keyState[40] || keyState[83]) {
 
 			// down arrow or 's' - move backward
@@ -244,7 +244,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 			this.camera.position.z += this.moveSpeed * Math.cos(this.player.rotation.y);
 
 		}
-
+		/*
 		if (keyState[37] || keyState[65]) {
 
 			// left arrow or 'a' - rotate left
@@ -262,7 +262,8 @@ THREE.PlayerControls = function (camera, player, domElement) {
 			this.player.rotation.y -= this.turnSpeed;
 
 		}
-		if (keyState[81]) {
+		*/
+		if (keyState[81] || keyState[37] || keyState[65]) {
 
 			// 'q' - strafe left
 			playerIsMoving = true;
@@ -275,7 +276,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 
 		}
 
-		if (keyState[69]) {
+		if (keyState[69] || keyState[39] || keyState[68]) {
 
 			// 'e' - strage right
 			playerIsMoving = true;
@@ -287,6 +288,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 			this.camera.position.z -= this.moveSpeed * Math.sin(this.player.rotation.y);
 
 		}
+
 		database.ref("Players/" + playerID + "/orientation").update({
 			position: {
 				x: this.player.position.x,
