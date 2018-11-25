@@ -178,7 +178,7 @@ function ballmove() {
 	collideMeshList.forEach((ball, index) => {
 
 		//ball.position.x += 1;
-		ball.position.z += 1 * getRandomArbitrary(0.5, 0.9);
+		ball.position.z += 1.1 * getRandomArbitrary(0.6, 0.9);
 
 		/*
 		database.ref("Balls/" + index).update({
