@@ -42,7 +42,7 @@ function animate() {
 	requestAnimationFrame(animate);
 	render();
 	var random_t = getRandomInt(0, 100);
-	if (random_t <= 10 && counter <= 500) {
+	if (random_t <= 20 && counter <= 1500) {
 		makeRandomSphere();
 		counter++;
 	}
@@ -164,7 +164,7 @@ function makeRandomSphere() {
 	var box = new THREE.Mesh(geometry, material);
 	//var box = new THREE.BoxHelper(object);
 	//box.material.color.setHex(Math.random() * 0xffffff);
-	box.position.x = getRandomArbitrary(-55, 55);
+	box.position.x = getRandomArbitrary(-155, 155);
 	box.position.y = 0;
 	box.position.z = getRandomArbitrary(-75, -155);
 	//cubes.push(box);
