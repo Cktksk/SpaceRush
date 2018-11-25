@@ -231,7 +231,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 			this.camera.position.z -= this.moveSpeed * Math.cos(this.player.rotation.y);
 
 		}
-		*/
+		
 		if (keyState[40] || keyState[83]) {
 
 			// down arrow or 's' - move backward
@@ -244,7 +244,7 @@ THREE.PlayerControls = function (camera, player, domElement) {
 			this.camera.position.z += this.moveSpeed * Math.cos(this.player.rotation.y);
 
 		}
-		/*
+		
 		if (keyState[37] || keyState[65]) {
 
 			// left arrow or 'a' - rotate left
