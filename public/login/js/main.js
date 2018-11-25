@@ -1,6 +1,7 @@
 var container, scene, camera, renderer;
 var controls;
 var collideMeshList = [];
+var radiusList = [];
 var circles = [];
 var counter = 0;
 var deg = Math.PI / 2;
@@ -53,6 +54,9 @@ function animate() {
 	if (controls) {
 		setTimeout(ballmove(), 3000);
 		var originPoint = player.mesh.position.clone();
+
+
+		/*
 		for (var vertexIndex = 0; vertexIndex < player.mesh.geometry.vertices.length; vertexIndex++) {
 			var localVertex = player.mesh.geometry.vertices[vertexIndex].clone();
 			var globalVertex = localVertex.applyMatrix4(player.mesh.matrix);
@@ -61,16 +65,46 @@ function animate() {
 			var collisionResults = ray.intersectObjects(collideMeshList);
 			if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
 				crash = true;
+				console.log("collisionResults distance:");
+				console.log(collisionResults[0].distance);
+				console.log(directionVector.length());
+				if(collisionResults[0].distance < 0.001){
+					crash = false;
+				}
 				break;
 			}
 			crash = false;
 		}
+		*/
 		controls.update();
+		crash = false;
+		collideMeshList.forEach((ball, index) => {
+
+			//ball.position.x += 1;
+			var distance = ball.position.distanceTo(player.mesh.position);
+			//console.log(distance);
+			//console.log("ball:");
+			//console.log(ball.geometry.radius);
+			if(distance < (1 + radiusList[index])){
+				crash = true;
+			}
+			/*
+			database.ref("Balls/" + index).update({
+				position: {
+					x: ball.position.x,
+					y: ball.position.y,
+					z: ball.position.z
+				}
+			});
+			*/
+		})
+		
 		if (crash && game_state == "start") {
 			console.log("Crash");
 			timeSurvived = Date.now() - timeStart;
 			gameOver();
 		}
+		
 	}
 
 	// generate random spheres
@@ -171,6 +205,7 @@ function makeRandomSphere() {
 	box.position.z = getRandomArbitrary(-155, -200);
 	//cubes.push(box);
 	collideMeshList.push(box);
+	radiusList.push(a);
 	scene.add(box);
 	console.log("Sphere added")
 }

@@ -3,12 +3,12 @@ var Player = function (playerID) {
     this.isMainPlayer = false;
     this.mesh;
     this.score = 0;
-    var cube_geometry = new THREE.BoxGeometry(1, 1, 1);
-    var cube_material = new THREE.MeshBasicMaterial({ color: 0x7777ff, wireframe: false });
+    var sphere_geometry = new THREE.SphereGeometry(1);
+    var sphere_material = new THREE.MeshBasicMaterial({ color: 0x7777ff, wireframe: false });
 
     var scope = this;
     this.init = function () {
-        scope.mesh = new THREE.Mesh(cube_geometry, cube_material);
+        scope.mesh = new THREE.Mesh(sphere_geometry, sphere_material);
         scene.add(scope.mesh);
 
         if (scope.isMainPlayer) {
