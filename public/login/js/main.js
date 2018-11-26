@@ -45,7 +45,7 @@ function animate() {
 	requestAnimationFrame(animate);
 	render();
 	var random_t = getRandomInt(0, 100);
-	if (random_t <= 40 && counter <= 1500) {
+	if (random_t <= 40 && game_state=="start") {
 		makeRandomSphere();
 		counter++;
 	}
@@ -228,9 +228,17 @@ function makeRandomSphere() {
 function ballmove() {
 	deg += 1 / 3 * Math.PI / 180;
 	collideMeshList.forEach((ball, index) => {
-
+		var coef = 1;
 		//ball.position.x += 1;
-		ball.position.z += 1.2 * getRandomArbitrary(0.8, 1);
+		if(timeStart <= 10000){
+			coef = 1;
+		}else{
+			 coef = 1 * (Date.now() - timeStart)/10000;
+			 if(coef >= 3){
+				 coef = 3;
+			 }
+		}
+		ball.position.z += coef * getRandomArbitrary(0.8, 1);
 
 		/*
 		database.ref("Balls/" + index).update({
