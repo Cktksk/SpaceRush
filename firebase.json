@@ -11,7 +11,7 @@
     ],
     "rewrites": [
       {
-        "source": "/bigben", "function": "bigben"
+        "source": "/leaderboard", "function": "listening"
         
       }
     ]
