@@ -95,4 +95,5 @@ function loadEnvironment() {
     var sphere = new THREE.Mesh(sphere_geometry, sphere_material);
    
     scene.add(sphere);
+    location.reload();
 }

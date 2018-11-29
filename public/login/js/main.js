@@ -17,6 +17,7 @@ animate();
 
 
 function init() {
+	//location.reload();
 	// Setup
 	container = document.getElementById('signed_in');
 
@@ -42,77 +43,82 @@ function init() {
 }
 
 function animate() {
+	//console.log(game_state);
+	if(!game_state){
+		location.reload();
+	}
 	requestAnimationFrame(animate);
 	render();
-	var random_t = getRandomInt(0, 100);
-	if (random_t <= 40 && game_state=="start") {
-		makeRandomSphere();
-		counter++;
-	}
-
-	var distance_from_zero = Math.sqrt(Math.pow(player.mesh.position.x, 2) + Math.pow(player.mesh.position.z, 2));
-	if (controls) {
-		setTimeout(ballmove(), 3000);
-		var originPoint = player.mesh.position.clone();
-
-
-		/*
-		for (var vertexIndex = 0; vertexIndex < player.mesh.geometry.vertices.length; vertexIndex++) {
-			var localVertex = player.mesh.geometry.vertices[vertexIndex].clone();
-			var globalVertex = localVertex.applyMatrix4(player.mesh.matrix);
-			var directionVector = globalVertex.sub(player.mesh.position);
-			var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
-			var collisionResults = ray.intersectObjects(collideMeshList);
-			if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-				crash = true;
-				console.log("collisionResults distance:");
-				console.log(collisionResults[0].distance);
-				console.log(directionVector.length());
-				if(collisionResults[0].distance < 0.001){
-					crash = false;
-				}
-				break;
-			}
-			crash = false;
+	if(game_state == "start"){
+		var random_t = getRandomInt(0, 100);
+		if (random_t <= 40 && game_state=="start") {
+			makeRandomSphere();
+			counter++;
 		}
-		*/
-		controls.update();
-		crash = false;
-		collideMeshList.forEach((ball, index) => {
 
-			//ball.position.x += 1;
-			var distance = ball.position.distanceTo(player.mesh.position);
-			//console.log(distance);
-			//console.log("ball:");
-			//console.log(ball.geometry.radius);
-			if (distance < (1 + radiusList[index])) {
-				crash = true;
-			}
+		var distance_from_zero = Math.sqrt(Math.pow(player.mesh.position.x, 2) + Math.pow(player.mesh.position.z, 2));
+		if (controls) {
+			setTimeout(ballmove(), 3000);
+			var originPoint = player.mesh.position.clone();
+
+
 			/*
-			database.ref("Balls/" + index).update({
-				position: {
-					x: ball.position.x,
-					y: ball.position.y,
-					z: ball.position.z
+			for (var vertexIndex = 0; vertexIndex < player.mesh.geometry.vertices.length; vertexIndex++) {
+				var localVertex = player.mesh.geometry.vertices[vertexIndex].clone();
+				var globalVertex = localVertex.applyMatrix4(player.mesh.matrix);
+				var directionVector = globalVertex.sub(player.mesh.position);
+				var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
+				var collisionResults = ray.intersectObjects(collideMeshList);
+				if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+					crash = true;
+					console.log("collisionResults distance:");
+					console.log(collisionResults[0].distance);
+					console.log(directionVector.length());
+					if(collisionResults[0].distance < 0.001){
+						crash = false;
+					}
+					break;
 				}
-			});
+				crash = false;
+			}
 			*/
-		})
+			controls.update();
+			crash = false;
+			collideMeshList.forEach((ball, index) => {
 
-		if (crash && game_state == "start") {
-			console.log("Crash");
-			timeSurvived = Date.now() - timeStart;
-			hit = true;
-			gameOver();
-		}
-		if (player.mesh.position.x > 100 || player.mesh.position.x < -100) {
-			console.log("Out of boundary");
-			timeSurvived = Date.now() - timeStart;
-			out_range = true;
-			gameOver();
-		}
+				//ball.position.x += 1;
+				var distance = ball.position.distanceTo(player.mesh.position);
+				//console.log(distance);
+				//console.log("ball:");
+				//console.log(ball.geometry.radius);
+				if (distance < (1 + radiusList[index])) {
+					crash = true;
+				}
+				/*
+				database.ref("Balls/" + index).update({
+					position: {
+						x: ball.position.x,
+						y: ball.position.y,
+						z: ball.position.z
+					}
+				});
+				*/
+			})
 
-	}
+			if (crash && game_state == "start") {
+				console.log("Crash");
+				timeSurvived = Date.now() - timeStart;
+				hit = true;
+				gameOver();
+			}
+			if (player.mesh.position.x > 100 || player.mesh.position.x < -100) {
+				console.log("Out of boundary");
+				timeSurvived = Date.now() - timeStart;
+				out_range = true;
+				gameOver();
+			}
+
+		}
 
 	// generate random spheres
 	/*
@@ -121,21 +127,25 @@ function animate() {
 		ballmove();
 	}*/
 	// checking for crash
+	}
 
 
 }
 function gameOver() {
-
-	database.ref("Players/" + playerID).remove();
-	document.getElementById("ldb").innerHTML = "";
+	
+	
 	if (hit && game_state == "start") {
 		window.alert("Game Over, you got hit by a comet!");
 		game_state = "over";
+		
 	}
 	else if (out_range && game_state == "start") {
 		window.alert("Game Over, you ran out of boundary!");
 		game_state = "over";
+		
 	}
+	database.ref("Players/" + playerID).remove();
+	document.getElementById("ldb").innerHTML = "";
 	
 	document.getElementById("html_body").style.backgroundImage = "url(http://www.gamesta.com/wp-content/uploads/2014/08/destiny3.jpg)";
 	document.getElementById("not_signed_in").style.display = "none";
@@ -157,14 +167,16 @@ function gameOver() {
 			});
 		}
 	});
-	writeScores();
+	//if(getElementById("ldb").innerHTML == ""){
+		writeScores();
+	//}
 
 
 }
 function writeScores() {
 	document.getElementById("ldb").innerHTML = "";
 	var leadRef = database.ref('Stored/');
-	leadRef.on('value', function (snapshot) {
+	leadRef.once('value').then(function (snapshot) {
 		snapshot.forEach(function (childSnapshot) {
 			var nameData = childSnapshot.val().name;
 			var scoreData = childSnapshot.val().highest_score;
