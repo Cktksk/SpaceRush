@@ -14,6 +14,7 @@ var _prob = 15;
 
 
 init();
+//location.reload();
 animate();
 
 
@@ -42,6 +43,7 @@ function init() {
 	container.appendChild(renderer.domElement);
 	document.body.appendChild(container);
 	game_state = "start";
+	
 }
 
 function animate() {
