@@ -10,6 +10,7 @@ var timeStart;
 var timeSurvived;
 var hit = false;
 var out_range = false;
+var _prob = 15;
 
 
 init();
@@ -19,6 +20,7 @@ animate();
 function init() {
 	//location.reload();
 	// Setup
+	
 	container = document.getElementById('signed_in');
 
 	scene = new THREE.Scene();
@@ -51,7 +53,7 @@ function animate() {
 	render();
 	if(game_state == "start"){
 		var random_t = getRandomInt(0, 100);
-		if (random_t <= 40 && game_state=="start") {
+		if (random_t <= _prob && game_state=="start") {
 			makeRandomSphere();
 			counter++;
 		}
@@ -246,11 +248,12 @@ function ballmove() {
 			coef = 1;
 		}else{
 			 coef = 1 * (Date.now() - timeStart)/10000;
-			 if(coef >= 3){
-				 coef = 3;
+			 if(coef >= 2){
+				 coef = 2;
+				 _prob = 18;
 			 }
 		}
-		ball.position.z += coef * getRandomArbitrary(0.8, 1);
+		ball.position.z += coef * getRandomArbitrary(0.65, 0.9);
 
 		/*
 		database.ref("Balls/" + index).update({
