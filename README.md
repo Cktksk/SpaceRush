@@ -11,7 +11,7 @@ __Project Description:__
 __Members:__
 
     Rongxi Zhang, zhan2488@purdue.edu
-    Xuan Zhan, zhao559@purdue.edu
+    Xuan Zhao, zhao559@purdue.edu
 
 __Tools:__
     
